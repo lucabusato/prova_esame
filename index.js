@@ -52,9 +52,55 @@ router.route('/assignments')
     })
     
     .get(function (req, res) {
-        Assignment.find(function (err, assignments) {
+        Assignment.find(function (err, assignment) {
             if (err) { res.send(err); }
-            res.json(assignments);
+            res.json(assignment);
+        });
+    
+    
+    });
+
+router.route('/assignments/:assignment_id')
+
+    // get the bear with that id
+    // (accessed at GET http://localhost:8080/api/bears/:bear_id)
+    .get(function (req, res) {
+        Assignment.find({
+            assignmentID: req.params.assignment_id
+        }, function (err, assignment) {
+            if (err) { res.send(err); }
+            res.json(assignment);
+        });
+    })
+
+    // update the bear with this id
+    // (accessed at PUT http://localhost:8080/api/bears/:bear_id)
+    .put(function (req, res) {
+
+        // use our bear model to find the bear we want
+        Assignment.find({
+            assignmentID: req.params.assignment_id
+        }, function (err, assignment) {
+            if (err) { res.send(err); }
+            
+            assignment[0].assignmentContent = req.body.assignmentContent;
+            // save the bear
+            assignment[0].save(function (err) {
+                if (err) { res.send(err); }
+                res.json(assignment);
+            });
+
+        });
+    })
+
+    // delete the bear with this id
+    // (accessed at DELETE http://localhost:8080/api/bears/:bear_id)
+    .delete(function (req, res) {
+        Assignment.remove({
+            assignmentID: req.params.assignment_id
+        }, function (err, assignment) {
+            if (err) { res.send(err); }
+            res.json({ message: 'Successfully deleted' });
         });
     });
 
