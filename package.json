@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/lucabusato/prova_esame/issues"
   },
-  "homepage": "https://github.com/lucabusato/prova_esame#readme"
+  "homepage": "https://github.com/lucabusato/prova_esame#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.13.6"
+  }
 }
